@@ -5,8 +5,7 @@ import (
 	"gomerkle"
 )
 
-const N_ITEMS = 1000000
-const N_PROOFS = 100
+const N_ITEMS = 8
 
 func main() {
 	data := make([][]byte, 0)
@@ -17,8 +16,9 @@ func main() {
 
 	mt := gomerkle.NewMt(data)
 
-	for i := range N_PROOFS {
-		pf := mt.Prove(data[i])
-		pf.Verify(mt.Root(), data[i])
-	}
+	// Print the tree
+	mt.Print()
+	// Verify a valid proof
+	pf := mt.Prove([]byte(fmt.Sprint(5)))
+	fmt.Printf("Result for proof: %v\n", pf.Verify(mt.Root(), []byte(fmt.Sprint(5))))
 }
