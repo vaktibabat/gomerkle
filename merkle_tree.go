@@ -2,6 +2,9 @@ package gomerkle
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"strings"
 )
 
 const DIGEST_SIZE = 32
@@ -149,4 +152,20 @@ func (root *merkle_node) size() int {
 	}
 	// otherwise return no. leaves in left subtree + right subtree
 	return root.left.size() + root.right.size()
+}
+
+func (tree *MerkleTree) Print() {
+	tree.root.print(0)
+}
+
+func (root *merkle_node) print(depth int) {
+	if root == nil {
+		return
+	}
+
+	root.left.print(depth + 1)
+
+	fmt.Printf("%s%s\n", strings.Repeat("    ", depth), hex.EncodeToString(root.data[:]))
+
+	root.right.print(depth + 1)
 }
