@@ -1,2 +1,2 @@
 # gomerkle
-Golang implementation of some common Merkle Tree variants
+Merkle Tree implementation in Go
